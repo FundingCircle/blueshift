@@ -31,6 +31,12 @@ module Sequel
         super.merge(serial: false)
       end
 
+      def column_definition_primary_key_sql(sql, column)
+        result = super
+        result << ' IDENTITY' if result
+        result
+      end
+
       def connection_configuration_sqls
         []
       end

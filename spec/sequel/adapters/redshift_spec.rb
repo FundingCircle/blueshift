@@ -109,6 +109,17 @@ RSpec.describe Sequel::Redshift do
             end
           end
         end
+
+        describe 'primary_key' do
+          it 'uses IDENTITY to create an auto-incrementing primary key' do
+            sql = 'CREATE TABLE "chocolates" ("id" bigint PRIMARY KEY IDENTITY)'
+            expect(DB).to receive(:execute_ddl).with(sql)
+
+            DB.create_table :chocolates do
+               primary_key :id, type: :Bignum
+            end
+          end
+        end
       end
     end
   end
